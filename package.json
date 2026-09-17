@@ -1,0 +1,49 @@
+{
+  "name": "alpha-mermaid",
+  "version": "0.0.0",
+  "private": true,
+  "description": "An Effect-native Mermaid renderer for SVG and terminal output.",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "check": "tsc --noEmit && ultracite check && vitest run && tsup",
+    "fix": "ultracite fix",
+    "lint": "ultracite check",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@effect/platform-node": "4.0.0-rc.115",
+    "effect": "4.0.0-rc.115",
+    "elkjs": "0.11.0",
+    "entities": "7.0.1"
+  },
+  "devDependencies": {
+    "@effect/vitest": "4.0.0-rc.115",
+    "@oxlint/plugins": "1.83.0",
+    "@types/node": "22.20.3",
+    "oxfmt": "0.68.0",
+    "oxlint": "1.83.0",
+    "oxlint-tsgolint": "7.0.2001",
+    "tsup": "8.5.1",
+    "typescript": "5.9.3",
+    "ultracite": "7.12.0",
+    "vitest": "5.0.0"
+  },
+  "packageManager": "pnpm@12.4.2"
+}
