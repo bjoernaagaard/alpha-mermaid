@@ -2,7 +2,7 @@
 
 An Effect-native Mermaid renderer for SVG and terminal output.
 
-Phase 1 provides flowchart-to-SVG rendering without a DOM or Bun. pnpm manages development commands; CLI and terminal output remain planned.
+Flowchart-to-SVG rendering is available through the Effect-native library and Node CLI, without a DOM or Bun. pnpm manages development commands; terminal output remains planned.
 
 Track scope, phase status, exit criteria, and risks in the [migration plan](MIGRATION.md).
 
@@ -24,6 +24,23 @@ Options are `bg` and `fg` (three- or six-digit hex colors), `font` (letters, dig
 This slice supports `graph`/`flowchart`, `LR`/`RL`/`TD`/`TB`/`BT`, bare or rectangular nodes with single-line plain labels, `-->` edges and chains, semicolon/newline statement separators, and full-line `%%` comments. Repeated definitions retain their original order and latest label. Labels are XML-escaped, not interpreted as markup.
 
 Other shapes, edge labels/styles, subgraphs, rich labels, and other diagram types are not yet supported. Source fixture parity currently covers asymmetric chains in all five directions; source-specific branch bundling and layer alignment remain part of complete flowchart support.
+
+## Command line
+
+Build with `pnpm build`, then run:
+
+```bash
+node dist/cli.js --inline 'graph LR; A[Start] --> B[Finish]' -o diagram.svg
+node dist/cli.js input.mmd --output diagram.svg
+printf 'graph LR; A --> B' | node dist/cli.js > diagram.svg
+node dist/cli.js --help
+```
+
+The package executable is named `alpha-mermaid`. Omit the input file or use `-` to read stdin. `--inline` (`-e`) cannot be combined with a file argument. Output defaults to stdout; `--output` (`-o`) selects a file, or `-` for stdout. SVG output ends with a newline. Output files are overwritten only after rendering succeeds.
+
+Rendering flags are `--bg`, `--fg`, `--font`, `--padding`, `--node-spacing`, and `--layer-spacing`, with the same validation and defaults as the library options. Quote hex colors, for example `--bg '#18181B' --fg '#FAFAFA'`.
+
+Exit codes are `0` for success, `2` for invalid arguments, input, or Mermaid syntax, and `1` for layout or I/O failures. Expected failures produce one diagnostic on stderr and no help text on stdout. `--help` and `--version` do not read input.
 
 ## Development
 

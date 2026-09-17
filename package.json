@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "description": "An Effect-native Mermaid renderer for SVG and terminal output.",
+  "bin": {
+    "alpha-mermaid": "./dist/cli.js"
+  },
   "files": [
     "dist",
     "LICENSE",
@@ -20,7 +23,7 @@
   },
   "scripts": {
     "build": "tsup",
-    "check": "tsc --noEmit && ultracite check && vitest run && tsup && node test/package-smoke.mjs",
+    "check": "tsc --noEmit && ultracite check && vitest run && tsup && node test/package-smoke.mjs && node test/cli-smoke.mjs",
     "fix": "ultracite fix",
     "lint": "ultracite check",
     "test": "vitest run",

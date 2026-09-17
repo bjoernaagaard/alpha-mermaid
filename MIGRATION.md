@@ -120,14 +120,14 @@ Exit criteria:
 
 Goal: deliver one usable end-to-end product surface before more diagram types are added.
 
-- [ ] Add `effect/unstable/cli` commands and validated flags.
-- [ ] Read source from an inline argument, a file, or standard input.
-- [ ] Write SVG to standard output or a selected file.
-- [ ] Provide Node services at the composition root.
-- [ ] Run the command with `NodeRuntime.runMain`.
-- [ ] Map tagged failures to stable messages and exit codes.
-- [ ] Test the command with provided services. Do not use module mocks.
-- [ ] Add the executable to package metadata and the build.
+- [x] Add `effect/unstable/cli` commands and validated flags.
+- [x] Read source from an inline argument, a file, or standard input.
+- [x] Write SVG to standard output or a selected file.
+- [x] Provide Node services at the composition root.
+- [x] Run the command with `NodeRuntime.runMain`.
+- [x] Map tagged failures to stable messages and exit codes.
+- [x] Test the command with provided services. Do not use module mocks.
+- [x] Add the executable to package metadata and the build.
 
 Exit criteria:
 
