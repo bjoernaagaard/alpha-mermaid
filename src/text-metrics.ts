@@ -52,13 +52,64 @@ const characterWidth = (char: string): number => {
   return 1;
 };
 
-export const measureLabel = (label: string) => {
+export const measureTextWidth = (
+  text: string,
+  fontSize: number,
+  fontWeight: number
+): number => {
+  let ratio = 0.54;
+
+  if (fontWeight >= 600) {
+    ratio = 0.6;
+  } else if (fontWeight >= 500) {
+    ratio = 0.57;
+  }
+
   let width = 0;
 
-  for (const char of label) {
+  for (const char of text) {
     width += characterWidth(char);
   }
 
-  // Source calibration: Inter, 13px, weight 500; 1.3 line height.
-  return { height: 13 * 1.3, width: width * 13 * 0.57 + 13 * 0.15 };
+  return width * fontSize * ratio + fontSize * 0.15;
+};
+
+export const LINE_HEIGHT_RATIO = 1.3;
+
+export interface MultilineMetrics {
+  readonly width: number;
+  readonly height: number;
+  readonly lines: readonly string[];
+  readonly lineHeight: number;
+}
+
+export const measureMultilineText = (
+  text: string,
+  fontSize: number,
+  fontWeight: number
+): MultilineMetrics => {
+  const lines = text.split("\n");
+
+  const widths = lines.map((line) =>
+    measureTextWidth(
+      line.replaceAll(/<\/?(?:b|strong|i|em|u|s|del)\s*>/giu, ""),
+      fontSize,
+      fontWeight
+    )
+  );
+
+  const lineHeight = fontSize * LINE_HEIGHT_RATIO;
+
+  return {
+    height: lines.length * lineHeight,
+    lineHeight,
+    lines,
+    width: Math.max(0, ...widths),
+  };
+};
+
+export const measureLabel = (label: string) => {
+  const { height, width } = measureMultilineText(label, 13, 500);
+
+  return { height, width };
 };

@@ -38,6 +38,11 @@ try {
   assert.equal(written.stdout, "");
   assert.equal(readFileSync(path.join(temp, "output.svg"), "utf-8"), expected);
 
+  const state = "stateDiagram-v2\n[*] --> Waiting\nWaiting --> [*]";
+  const renderedState = run(["-e", state]);
+  assert.equal(renderedState.status, 0, renderedState.stderr);
+  assert.equal(renderedState.stdout, `${renderSync(state)}\n`);
+
   for (const args of [
     [],
     ["-e", ""],

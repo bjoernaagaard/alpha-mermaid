@@ -15,6 +15,13 @@ const svg = renderSync(source);
 
 assert.equal(await Effect.runPromise(render(source)), svg);
 
+const state =
+  "stateDiagram-v2\n[*] --> Waiting\nWaiting --> Done : finish\nDone --> [*]";
+
+assert.equal(await Effect.runPromise(render(state)), renderSync(state));
+
+assert.match(renderSync(state), /data-shape="state-end"/u);
+
 assert.match(svg, /<svg xmlns="http:\/\/www.w3.org\/2000\/svg"/u);
 
 assert.match(svg, /data-from="A" data-to="B"/u);

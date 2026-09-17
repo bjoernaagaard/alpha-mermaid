@@ -138,16 +138,16 @@ Exit criteria:
 
 ### Phase 3: Complete flowchart and state support
 
-- [ ] Port all flowchart node shapes.
-- [ ] Port edge types, labels, terminals, and inline edge styles.
-- [ ] Port subgraphs and nested subgraphs.
-- [ ] Port direction overrides and disconnected graph behavior.
-- [ ] Port class definitions, class assignments, and node styles.
-- [ ] Port state diagrams and composite states.
-- [ ] Port accessibility title and description handling.
-- [ ] Port init-directive option handling.
-- [ ] Port suppressed-error SVG behavior if it remains part of the new API.
-- [ ] Port flowchart and state SVG fixtures.
+- [x] Port all flowchart node shapes.
+- [x] Port edge types, labels, terminals, and inline edge styles.
+- [x] Port subgraphs and nested subgraphs.
+- [x] Port direction overrides and disconnected graph behavior.
+- [x] Port class definitions, class assignments, and node styles.
+- [x] Port state diagrams and composite states.
+- [x] Port accessibility title and description handling.
+- [x] Port init-directive option handling.
+- [x] Port suppressed-error SVG behavior if it remains part of the new API.
+- [x] Port flowchart and state SVG fixtures.
 
 Exit criteria:
 

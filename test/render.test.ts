@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import { assert, it } from "@effect/vitest";
 import { Effect, Schema } from "effect";
 
+import { parseFlowchart } from "../src/flowchart/parser.ts";
 import {
   InputError,
   LayoutError,
@@ -110,9 +111,17 @@ it.effect(
       const error = yield* Effect.flip(
         layout(
           {
+            ...parseFlowchart("graph LR; A[Start]"),
             direction: "LR",
-            edges: [{ source: "A", target: "missing" }],
-            nodes: new Map([["A", { id: "A", label: "Start" }]]),
+            edges: [
+              {
+                hasArrowEnd: true,
+                hasArrowStart: false,
+                source: "A",
+                style: "solid",
+                target: "missing",
+              },
+            ],
           },
           {}
         )

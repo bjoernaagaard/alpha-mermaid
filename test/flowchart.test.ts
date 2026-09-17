@@ -16,25 +16,38 @@ describe("flowchart parser", () => {
 
     expect(graph.direction).toBe("LR");
     expect([...graph.nodes.values()]).toStrictEqual([
-      { id: "Z", label: "WWWW" },
-      { id: "B", label: "Updated" },
-      { id: "A", label: "Finish" },
+      { geometry: "rectangle", id: "Z", label: "WWWW" },
+      { geometry: "rectangle", id: "B", label: "Updated" },
+      { geometry: "rectangle", id: "A", label: "Finish" },
     ]);
-    expect(graph.edges).toStrictEqual([
-      { source: "Z", target: "B" },
-      { source: "B", target: "A" },
-      { source: "Z", target: "B" },
-    ]);
+    expect(graph.edges).toStrictEqual(
+      [
+        { source: "Z", target: "B" },
+        { source: "B", target: "A" },
+        { source: "Z", target: "B" },
+      ].map((edge) => ({
+        ...edge,
+        hasArrowEnd: true,
+        hasArrowStart: false,
+        style: "solid",
+      }))
+    );
   });
 
   it("keeps semicolons inside labels and accepts compact arrows and hyphenated IDs", () => {
     const graph = parseFlowchart("graph LR; start-id[left; right]-->end-id");
     expect([...graph.nodes.values()]).toStrictEqual([
-      { id: "start-id", label: "left; right" },
-      { id: "end-id", label: "end-id" },
+      { geometry: "rectangle", id: "start-id", label: "left; right" },
+      { geometry: "rectangle", id: "end-id", label: "end-id" },
     ]);
     expect(graph.edges).toStrictEqual([
-      { source: "start-id", target: "end-id" },
+      {
+        hasArrowEnd: true,
+        hasArrowStart: false,
+        source: "start-id",
+        style: "solid",
+        target: "end-id",
+      },
     ]);
   });
 
@@ -47,11 +60,6 @@ describe("flowchart parser", () => {
     "graph LR; A -->",
     "graph LR; A --> B junk",
     "graph LR; A[unterminated",
-    "graph LR; A((circle))",
-    "graph LR; A[(database)]",
-    "graph LR; A[/parallelogram/]",
-    "graph LR; A[/trapezoid\\]",
-    "graph LR; A -.-> B",
     "graph LR; subgraph S",
   ])("rejects incomplete or unsupported syntax: %s", (source) => {
     expect(() => parseFlowchart(source)).toThrow(ParseError);
@@ -75,7 +83,17 @@ describe("ELK layout", () => {
   it.each(fixtures)(
     "matches baseline coordinates for $source",
     ({ source, graph }) => {
-      expect(layoutFlowchart(parseFlowchart(source), {})).toStrictEqual(graph);
+      expect(layoutFlowchart(parseFlowchart(source), {})).toStrictEqual({
+        ...graph,
+        edges: graph.edges.map((edge) => ({
+          ...edge,
+          hasArrowEnd: true,
+          hasArrowStart: false,
+          style: "solid",
+        })),
+        groups: [],
+        nodes: graph.nodes.map((node) => ({ ...node, geometry: "rectangle" })),
+      });
     }
   );
 
@@ -90,6 +108,7 @@ describe("ELK layout", () => {
     });
     expect(layoutFlowchart(graph, options).nodes).toStrictEqual([
       {
+        geometry: "rectangle",
         height: 36.900000000000006,
         id: "A",
         label: "WWWW",
@@ -98,6 +117,7 @@ describe("ELK layout", () => {
         y: 0,
       },
       {
+        geometry: "rectangle",
         height: 36.900000000000006,
         id: "B",
         label: "i",
@@ -144,18 +164,23 @@ describe("SVG serialization", () => {
       {
         edges: [
           {
+            hasArrowEnd: true,
+            hasArrowStart: false,
             points: [
               { x: 108, y: 41.5 },
               { x: 190, y: 41.5 },
               { x: 190, y: 94 },
             ],
             source: "left",
+            style: "solid",
             target: "right",
           },
         ],
+        groups: [],
         height: 149,
         nodes: [
           {
+            geometry: "rectangle",
             height: 37,
             id: "left",
             label: '<script>&"',

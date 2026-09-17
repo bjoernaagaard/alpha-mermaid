@@ -10,3 +10,9 @@ The SVG test compares the complete output after removing the source's unused rev
 The source tests informing this slice are `parser.test.ts` (headers, rectangles, chains and repeated definitions), `edge-approach-direction.test.ts` (directional edge entry), and `renderer.test.ts` (independent positioned geometry and semantic SVG attributes).
 
 Source copyright: © 2026 Craft Docs, MIT; see the repository's `LICENSE`. No test imports or executes the source repository.
+
+## Phase 3 source fixtures
+
+`phase3.json` contains 16 inputs and unmodified `renderMermaidSVG` outputs from the same read-only baseline and pinned ELK version. Coverage includes every flowchart geometry, edge styles/terminals, inline styles, nested/disconnected groups, cross-hierarchy routing with a direction override, state/composite-state diagrams, rich labels, and asymmetric fan-out/fan-in in every direction.
+
+The Phase 3 comparison removes only the stylesheet and whitespace between SVG elements. It separately compares every retained derived CSS variable against the source. Geometry, attributes, labels, marker definitions, and element order remain exact. Fixtures were generated under Node with TypeScript stripping and a temporary import-resolution hook for the source's extensionless imports and dependencies; the source checkout was not modified. The hook is not part of the package or test runtime.

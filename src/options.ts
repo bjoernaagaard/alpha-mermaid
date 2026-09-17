@@ -12,6 +12,7 @@ const color = Schema.String.check(
 export class RenderOptions extends Schema.Class<RenderOptions>("RenderOptions")(
   {
     bg: Schema.optionalKey(color),
+    componentSpacing: Schema.optionalKey(spacing),
     fg: Schema.optionalKey(color),
     font: Schema.optionalKey(
       Schema.String.check(Schema.isPattern(/^[\w -]+$/u))
@@ -19,5 +20,7 @@ export class RenderOptions extends Schema.Class<RenderOptions>("RenderOptions")(
     layerSpacing: Schema.optionalKey(spacing),
     nodeSpacing: Schema.optionalKey(spacing),
     padding: Schema.optionalKey(spacing),
+    parseError: Schema.optionalKey(Schema.String),
+    suppressErrors: Schema.optionalKey(Schema.Boolean),
   }
 ) {}

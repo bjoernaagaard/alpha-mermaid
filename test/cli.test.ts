@@ -198,7 +198,7 @@ it.effect("does not overwrite an output file on parse failure", () =>
     assert.strictEqual(test.files.get("output.svg"), "untouched");
     assert.deepStrictEqual(test.stdout, []);
     assert.deepStrictEqual(test.stderr, [
-      "alpha-mermaid: error: Expected a rectangular node: \n",
+      "alpha-mermaid: error: Expected edge target: A -->\n",
     ]);
   })
 );
