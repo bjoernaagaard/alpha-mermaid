@@ -20,7 +20,7 @@
   },
   "scripts": {
     "build": "tsup",
-    "check": "tsc --noEmit && ultracite check && vitest run && tsup",
+    "check": "tsc --noEmit && ultracite check && vitest run && tsup && node test/package-smoke.mjs",
     "fix": "ultracite fix",
     "lint": "ultracite check",
     "test": "vitest run",

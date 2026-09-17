@@ -95,18 +95,18 @@ Exit evidence:
 
 Goal: render a basic flowchart to SVG through the new public API.
 
-- [ ] Define `RenderOptions` with Effect Schema.
-- [ ] Define the smallest stable tagged error set for input, parse, and layout failures.
-- [ ] Define the Effect-native `render` API.
-- [ ] Define a synchronous convenience API for the synchronous core.
-- [ ] Migrate flowchart diagram detection.
-- [ ] Migrate the flowchart model and parser for nodes and directed edges.
-- [ ] Migrate text measurement required by the slice.
-- [ ] Migrate the ELK adapter required by the slice.
-- [ ] Encapsulate ELK's synchronous worker bypass behind one internal boundary.
-- [ ] Migrate the minimum theme variables and SVG serializer.
-- [ ] Port asymmetric parser, layout, and SVG fixture tests.
-- [ ] Verify that the built package can render without Bun or a DOM.
+- [x] Define `RenderOptions` with Effect Schema.
+- [x] Define the smallest stable tagged error set for input, parse, and layout failures.
+- [x] Define the Effect-native `render` API.
+- [x] Define a synchronous convenience API for the synchronous core.
+- [x] Migrate flowchart diagram detection.
+- [x] Migrate the flowchart model and parser for nodes and directed edges.
+- [x] Migrate text measurement required by the slice.
+- [x] Migrate the ELK adapter required by the slice.
+- [x] Encapsulate ELK's synchronous worker bypass behind one internal boundary.
+- [x] Migrate the minimum theme variables and SVG serializer.
+- [x] Port asymmetric parser, layout, and SVG fixture tests.
+- [x] Verify that the built package can render without Bun or a DOM.
 
 Exit criteria:
 
